@@ -17,7 +17,7 @@ Array.prototype.sum = function(){
 	return(s)
 }
 
-function indexMax(arr) {
+indexMax = (arr) => {
     if (arr.length === 0) {
         return -1;
     }
@@ -35,14 +35,14 @@ function indexMax(arr) {
     return maxIndex;
 }
 
-function multiplyArr(arr1, arr2){
-	if(length(arr1) !== length(arr2)){
-		console.log("size error: " +length(arr1)+ " != " + length(arr2))
-	} else {
-		let arr = []
-		for(let i=0; i<arr1.length; i++){
-			arr[i] = arr1[i] * arr2[i]
+indexFromProbs = (probs) => {
+	let r = Math.random()
+	let s = 0
+	for(let i=0; i<probs.length; i++){
+		if(r < s + probs[i]){
+			return i
+		} else {
+			s += probs[i]
 		}
-		return arr
 	}
 }

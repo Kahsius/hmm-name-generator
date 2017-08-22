@@ -244,6 +244,17 @@ class HMM {
 		return v
 	}
 
+	generate(len){
+		let arr = new Array(len)
+		let state = indexFromProbs(this.initProb)
+		arr[0] = indexFromProbs(this.emisProb[state])
+		for(let i=1; i<len; i++){
+			state = indexFromProbs(this.transProb[state])
+			arr[i] = indexFromProbs(this.emisProb[state])
+		}
+		return(arr.map(e => this.alphab[e]))
+	}
+
 	getIndex(symbol){
 		return this.alphab.indexOf(symbol)
 	}
