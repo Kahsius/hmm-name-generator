@@ -1,5 +1,5 @@
 class HMM {
-	constructor(nStates, alphab, maxIter = 100){
+	constructor(nStates, alphab, maxIter = 200){
 		this.nStates = nStates
 		this.alphab = alphab
 		this.oldLogProb = -Infinity
@@ -134,16 +134,19 @@ class HMM {
 	}
 
 	fit(arrSeq){
+		let step = 0
 		for(let i=0; i<this.maxIter; i++){
 			this.fitStep(arrSeq)
 			let score = arrSeq.map(e => this.logProb(e)).sum()
+			console.log("Step " + i + " - score : " + score)
 			if(score > this.oldLogProb){
 				this.oldLogProb = score
 			} else {
+				step = i
 				break
 			}
 		}
-		console.log("Fitness finished after " +i+ " steps")
+		console.log("Fitness finished after " +step+ " steps")
 	}
 
 	fitStep(arrSeq){
@@ -244,15 +247,20 @@ class HMM {
 		return v
 	}
 
-	generate(len){
-		let arr = new Array(len)
+	generate(finishChar = "-"){
+		let arr = []
 		let state = indexFromProbs(this.initProb)
 		arr[0] = indexFromProbs(this.emisProb[state])
-		for(let i=1; i<len; i++){
+		let i = 1
+		while(this.alphab[arr[arr.length-1]] !== finishChar){
 			state = indexFromProbs(this.transProb[state])
 			arr[i] = indexFromProbs(this.emisProb[state])
+			i++
 		}
-		return(arr.map(e => this.alphab[e]))
+		let name = arr.map(e => this.alphab[e]).slice(0,arr.length-1).join("")
+		name = name.charAt(0).toUpperCase() + name.slice(1)
+
+		return name
 	}
 
 	getIndex(symbol){

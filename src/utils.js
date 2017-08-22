@@ -46,3 +46,16 @@ indexFromProbs = (probs) => {
 		}
 	}
 }
+
+getAlphabet = (arrSeq) => {
+	let alphab = []
+	for(let i=0; i<arrSeq.length; i++){
+		let seq = arrSeq[i]
+		for(let j=0; j<seq.length; j++){
+			if(alphab.indexOf(seq[j]) === -1){
+				alphab[alphab.length] = seq[j]
+			}
+		}
+	}
+	return(alphab)
+}
