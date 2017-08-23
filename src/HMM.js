@@ -1,5 +1,5 @@
 class HMM {
-	constructor(nStates, alphab, maxIter = 100){
+	constructor(nStates = 0, alphab = [], maxIter = 100){
 		this.nStates = nStates
 		this.alphab = alphab
 		this.oldLogProb = -Infinity

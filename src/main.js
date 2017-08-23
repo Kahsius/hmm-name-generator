@@ -16,7 +16,7 @@ window.onload = function(){
 					break
 				case 'done':
 					console.log("Learning done")
-					var h = e.data.data
+					h = Object.assign(new HMM(), e.data.data)
 					worker.terminate()
 					break
 				case 'console':
