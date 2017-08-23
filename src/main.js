@@ -33,7 +33,7 @@ window.onload = function(){
 					case 'done':
 						console.log("Learning done")
 						h = Object.assign(new HMM(), e.data.data)
-						$("div[name=process]").html("Training finished")
+						$("div[name=process]").html("Training finished, final score : " + h.oldLogProb)
 						$("button[name=generateButton]").css("display","inline")
 						worker.terminate()
 						break
