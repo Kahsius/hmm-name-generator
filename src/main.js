@@ -5,7 +5,6 @@ window.onload = function(){
 		return name.charAt(0).toLowerCase() + name.slice(1)
 	})
 	let alphab = getAlphabet(bdd)
-	var h = null
 
 	if(typeof(Worker) !== "undefined"){
 		console.log("Workers are supported")
@@ -17,8 +16,7 @@ window.onload = function(){
 					break
 				case 'done':
 					console.log("Learning done")
-					debugger
-					h = e.data.data
+					var h = e.data.data
 					worker.terminate()
 					break
 				case 'console':
