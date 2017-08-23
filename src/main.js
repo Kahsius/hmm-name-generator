@@ -5,6 +5,37 @@ window.onload = function(){
 		return name.charAt(0).toLowerCase() + name.slice(1)
 	})
 	let alphab = getAlphabet(bdd)
-	h = new HMM(30, alphab)
-	h.fit(bdd)
+	var h = null
+
+	if(typeof(Worker) !== "undefined"){
+		console.log("Workers are supported")
+		var worker = new Worker("../src/workerHMM.js")
+		worker.addEventListener("message", e => {
+			switch(e.data.cmd){
+				case 'start':
+					console.log(e.data.data)
+					break
+				case 'done':
+					console.log("Learning done")
+					debugger
+					h = e.data.data
+					worker.terminate()
+					break
+				case 'console':
+					console.log(e.data.data)
+					break
+				default:
+					console.log("Message not understood")
+					console.log(e)
+			}
+		}, false)
+
+		let message = {'cmd': 'learn',
+						'database': bdd,
+						'nStates': 10,
+						'alphab': alphab}
+		worker.postMessage(message)
+	} else {
+		console.log("Workers are not supported")
+	}
 }
