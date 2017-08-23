@@ -3,10 +3,31 @@
     <head>
     	<title>GodNameGenerator</title>
     	<meta charset="UTF-8"/>
-    	<script type='text/javascript' src='../src/HMM.js'></script>
-    	<script type='text/javascript' src='../src/utils.js'></script>
-    	<script type='text/javascript' src='../src/main.js'></script>
+        <link rel="stylesheet" href="style.css"/>
+        <script type='text/javascript' src='lib/jquery-3.2.1.js'></script>
+    	<script type='text/javascript' src='src/HMM.js'></script>
+    	<script type='text/javascript' src='src/utils.js'></script>
+    	<script type='text/javascript' src='src/main.js'></script>
     </head>
     <body>
+        <h1>Name Learner and Generator</h1>
+        <br/><br/>
+
+        Number of hidden states : <input name="nStates" id="nStates" type="number" min="2" max="100" value="10"/><br/><br/>
+
+        Maximum number of iterations : <input name="maxIter" id="maxIter" type="number" min="1" max="1000" value="100"/><br/><br/>
+
+        <textarea cols="40" name="namelist" rows="20" placeholder="Names separated by commas : Truc,Machin,Youpi . If empty, will use names of greek Gods"></textarea><br/><br/>
+
+        <button type="button" class="buttonInput">Learn</button><br/><br/>
+        <div name="process"></div><br/><br/>
+
+        <div id="myProgress">
+            <div id="myBar"></div>
+        </div><br/><br/>
+
+        <button type="button" name="generateButton" style="display:none">Generate Random Name</button><br/><br/>
+
+        <div name="randomName"></div>
     </body>
 </html> 

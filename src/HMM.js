@@ -139,6 +139,7 @@ class HMM {
 			this.fitStep(arrSeq)
 			let score = arrSeq.map(e => this.logProb(e)).sum()
 			console.log("Step " + i + " - score : " + score)
+			postMessage({'cmd':'bar', 'data':(i+1)/this.maxIter})
 			if(score > this.oldLogProb){
 				this.oldLogProb = score
 			} else {
@@ -146,7 +147,6 @@ class HMM {
 				break
 			}
 		}
-		console.log("Fitness finished after " +step+ " steps")
 	}
 
 	fitStep(arrSeq){
@@ -247,7 +247,7 @@ class HMM {
 		return v
 	}
 
-	generate(finishChar = "-"){
+	generate(finishChar = "%"){
 		let arr = []
 		let state = indexFromProbs(this.initProb)
 		arr[0] = indexFromProbs(this.emisProb[state])

@@ -8,7 +8,7 @@ onmessage = e => {
 		case 'learn':
 			postMessage({'cmd':'start', 'data':'Learning started'})
 
-			let h = new HMM(data.nStates, data.alphab)
+			let h = new HMM(data.nStates, data.alphab, data.maxIter)
 			h.fit(data.database)
 			postMessage({'cmd':'done', 'data':h})
 			break
