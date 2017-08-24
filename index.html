@@ -5,6 +5,7 @@
     	<meta charset="UTF-8"/>
         <link rel="stylesheet" href="style.css"/>
         <script type='text/javascript' src='lib/jquery-3.2.1.js'></script>
+        <script type='text/javascript' src='lib/Chart.bundle.js'></script>  
     	<script type='text/javascript' src='src/HMM.js'></script>
     	<script type='text/javascript' src='src/utils.js'></script>
     	<script type='text/javascript' src='src/main.js'></script>
@@ -20,7 +21,10 @@
         <textarea cols="40" name="namelist" rows="20" placeholder="Names separated by commas : Truc,Machin,Youpi . If empty, will use names of greek Gods"></textarea><br/><br/>
 
         <button type="button" class="buttonInput">Learn</button><br/><br/>
+        <button type="button" class="buttonStop" style="visibility: hidden">Stop</button><br/><br/>
         <div name="process"></div><br/><br/>
+
+        <canvas id="chart"></canvas>
 
         <div id="myProgress">
             <div id="myBar"></div>

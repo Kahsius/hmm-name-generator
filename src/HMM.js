@@ -141,8 +141,9 @@ class HMM {
 		for(let i=0; i<this.maxIter; i++){
 			this.fitStep(arrSeq)
 			let score = arrSeq.map(e => this.logProb(e)).sum()
-			console.log("Step " + i + " - score : " + score)
+			postMessage({'cmd':'updateChart', 'data':score})
 			postMessage({'cmd':'bar', 'data':(i+1)/this.maxIter})
+			postMessage({'cmd':'saveHMM', 'data':this})
 			if(score > this.oldLogProb){
 				this.oldLogProb = score
 			} else {

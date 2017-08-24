@@ -1,6 +1,21 @@
 window.onload = function(){
+
 	$("button.buttonInput").on("click", function(e){
 		console.log("click")
+
+		var ctx = $("#chart")
+		var chart = new Chart(ctx,{
+			type:'line',
+			labels:[],
+			data:{datasets:[{
+				label: "Score evolution",
+				data:[],
+				fill:false
+			}]}
+		})
+		chart.canvas.parentNode.style.height = "400px"
+		chart.canvas.parentNode.style.width = "400px"
+
 		$("button[name=generateButton]").css("display","none")
 		$("#myProgress").css("display","block")
 		$("#myBar").css("width","0px")
@@ -43,6 +58,14 @@ window.onload = function(){
 					case 'bar':
 						$("div#myBar").css("width", (e.data.data*$("#myProgress").css("width").slice(0,-2)) + "px")
 						break
+					case 'saveHMM':
+						h = Object.assign(new HMM(), e.data.data)
+					case 'updateChart':
+						let d = chart.data.datasets[0].data
+						d[d.length] = e.data.data
+						chart.data.labels[chart.data.labels.length] = chart.data.labels.length + 1
+						chart.update()
+						break
 					default:
 						console.log("Message not understood")
 						console.log(e)
@@ -56,6 +79,16 @@ window.onload = function(){
 							'maxIter': maxIter}
 			worker.postMessage(message)
 			$("div[name=process]").html("Training ongoing")
+
+			let b = $("button.buttonStop")
+			b.on("click", function(e){
+				$("div[name=process]").html("Training stopped, final score : " + h.oldLogProb)
+				$("button[name=generateButton]").css("display","inline")
+				worker.terminate()
+				b.css("visibility","hidden")
+			})
+			b.css("visibility", "visible")
+
 		} else {
 			console.log("Workers are not supported")
 		}

@@ -4,6 +4,7 @@ importScripts('utils.js')
 onmessage = e => {
 	// throw JSON.stringify({data:e})
 	let data = e.data
+	var _stop = false
 	switch(data.cmd){
 		case 'learn':
 			postMessage({'cmd':'start', 'data':'Learning started'})
