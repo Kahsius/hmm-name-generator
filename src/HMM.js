@@ -98,6 +98,7 @@ class HMM {
 		let alphas = this.forward(seq)
 		let betas = this.backward(seq)
 		let gammas = new Array(T)
+		let debugS = 0
 		for(let i=0; i<T; i++){
 			gammas[i] = new Array(this.nStates)
 			if(i<T-1){
@@ -117,6 +118,7 @@ class HMM {
 			for(i=0; i<this.nStates; i++){
 				for(let j=0; j<this.nStates; j++){
 					gammas[t][i][j] = alphas[t][i]*this.transProb[i][j]*this.emisProb[j][this.getIndex(seq[t+1])]*betas[t+1][j]/denom
+					debugS += gammas[t][i][j]
 				}
 			}
 
@@ -127,6 +129,7 @@ class HMM {
 			}
 			for(i=0; i<this.nStates; i++){
 				gammas[T-1][i] = alphas[T-1][i]/denom
+				debugS += gammas[T-1][i]
 			}
 		}
 
@@ -176,7 +179,8 @@ class HMM {
 						denom += allGammas[n][t][i].sum()
 					}
 				}
-				this.transProb[i][j] = numer/denom
+				// If it is impossible to reach that state
+				this.transProb[i][j] = (denom != 0) ? numer/denom : 0
 			}
 		}
 
@@ -201,7 +205,8 @@ class HMM {
 					}
 					denom += allGammas[n][T-1][i]
 				}
-				this.emisProb[i][j] = numer/denom
+				// If it is impossible to reach that state
+				this.emisProb[i][j] = (denom != 0) ? numer/denom : 0
 			}
 		}
 	}
