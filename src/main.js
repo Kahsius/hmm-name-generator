@@ -1,5 +1,4 @@
 window.onload = function(){
-
 	$("button.buttonInput").on("click", function(e){
 		console.log("click")
 
@@ -50,6 +49,7 @@ window.onload = function(){
 						h = Object.assign(new HMM(), e.data.data)
 						$("div[name=process]").html("Training finished, final score : " + h.oldLogProb)
 						$("button[name=generateButton]").css("display","inline")
+						$(".buttonStop").css("visibility","hidden")
 						worker.terminate()
 						break
 					case 'console':
