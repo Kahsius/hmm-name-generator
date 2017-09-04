@@ -72,7 +72,7 @@ window.onload = function(){
 				}
 			}, false)
 
-			let message = {'cmd': 'learn',
+			let message = {'cmd': 'learnVerbose',
 							'database': bdd,
 							'nStates': nStates,
 							'alphab': alphab,

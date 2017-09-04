@@ -55,11 +55,6 @@ class HMM {
 			// }
 		}
 
-		// if(getCt){
-		// 	return c
-		// } else {
-		// 	return alphas
-		// }
 
 		return alphas
 	}
@@ -137,17 +132,12 @@ class HMM {
 	}
 
 	fit(arrSeq){
-		let step = 0
 		for(let i=0; i<this.maxIter; i++){
 			this.fitStep(arrSeq)
 			let score = arrSeq.map(e => this.logProb(e)).sum()
-			postMessage({'cmd':'updateChart', 'data':score})
-			postMessage({'cmd':'bar', 'data':(i+1)/this.maxIter})
-			postMessage({'cmd':'saveHMM', 'data':this})
 			if(score > this.oldLogProb){
 				this.oldLogProb = score
 			} else {
-				step = i
 				break
 			}
 		}
